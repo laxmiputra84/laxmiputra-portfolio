@@ -17,10 +17,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 export const metadata: Metadata = {
   title: "Laxmiputra Hipparagi | Full Stack Developer Portfolio",
-  description: "Production-ready portfolio showcasing modern full stack web applications and software architectures.",
+  description:
+    "Production-ready portfolio showcasing modern full stack web applications and software architectures.",
+
+  verification: {
+    google: "1qgHn1kIanMcbyF4d7hPKdlOCcK8RShNPzsxz81isgI",
+  },
 };
 
 export default function RootLayout({
