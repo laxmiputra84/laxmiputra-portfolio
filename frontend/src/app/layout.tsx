@@ -26,7 +26,6 @@ export const metadata: Metadata = {
     google: "1qgHn1kIanMcbyF4d7hPKdlOCcK8RShNPzsxz81isgI",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
