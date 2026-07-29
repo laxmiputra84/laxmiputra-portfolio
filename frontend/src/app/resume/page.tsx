@@ -51,7 +51,8 @@ export default function ResumePage() {
   const getPdfUrl = (path: string) => {
     // Strip "app/" prefix because it is mounted on "/uploads"
     const relativePath = path.startsWith("app/") ? path.slice(4) : path;
-    return `http://localhost:8000/${relativePath.replace(/\\/g, "/")}`;
+    const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+    return `${base}/${relativePath.replace(/\\/g, "/")}`;
   };
 
   return (

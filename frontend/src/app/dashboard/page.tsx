@@ -187,7 +187,8 @@ function DashboardContent() {
   // Convert local app/uploads/resume/filename to public server HTTP path
   const getPdfUrl = (path: string) => {
     const relativePath = path.startsWith("app/") ? path.slice(4) : path;
-    return `http://localhost:8000/${relativePath.replace(/\\/g, "/")}`;
+    const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+    return `${base}/${relativePath.replace(/\\/g, "/")}`;
   };
 
   // --- Image Upload Handler for Settings ---
@@ -198,7 +199,8 @@ function DashboardContent() {
     try {
       const res = await uploadFile(file);
       const fileUrl = res.file_url;
-      const fullUrl = `http://localhost:8000${fileUrl}`;
+      const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+      const fullUrl = `${base}${fileUrl}`;
       setSettingsForm((prev) => ({ ...prev, profile_image: fullUrl }));
       showToast("Profile image uploaded successfully!");
     } catch (err) {
@@ -216,7 +218,8 @@ function DashboardContent() {
     try {
       const res = await uploadFile(file);
       const fileUrl = res.file_url;
-      const fullUrl = `http://localhost:8000${fileUrl}`;
+      const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+      const fullUrl = `${base}${fileUrl}`;
       setProjectForm((prev) => ({ ...prev, image_url: fullUrl }));
       showToast("Project image uploaded successfully!");
     } catch (err) {
@@ -234,7 +237,8 @@ function DashboardContent() {
     try {
       const res = await uploadFile(file);
       const fileUrl = res.file_url;
-      const fullUrl = `http://localhost:8000${fileUrl}`;
+      const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+      const fullUrl = `${base}${fileUrl}`;
       setCertificateForm((prev) => ({ ...prev, image_url: fullUrl }));
       showToast("Certificate image uploaded successfully!");
     } catch (err) {
