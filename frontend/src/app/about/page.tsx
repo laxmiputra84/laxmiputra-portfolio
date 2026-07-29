@@ -26,6 +26,21 @@ export default function AboutPage() {
     loadData();
   }, []);
 
+  const getProfileImageUrl = (url?: string) => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      try {
+        const parsed = new URL(url);
+        const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+        return `${base}${parsed.pathname}`;
+      } catch {
+        return url;
+      }
+    }
+    const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+    return `${base}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+
   return (
     <>
       <PageHeader
@@ -56,7 +71,7 @@ export default function AboutPage() {
                 
                 {settings?.profile_image ? (
                   <img
-                    src={settings.profile_image}
+                    src={getProfileImageUrl(settings.profile_image)}
                     alt="Profile Photo"
                     className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover shadow-2xl border border-border/50 transition-all duration-300 group-hover:scale-[1.02]"
                   />

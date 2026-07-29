@@ -191,6 +191,21 @@ function DashboardContent() {
     return `${base}/${relativePath.replace(/\\/g, "/")}`;
   };
 
+  const getProfileImageUrl = (url?: string) => {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      try {
+        const parsed = new URL(url);
+        const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+        return `${base}${parsed.pathname}`;
+      } catch {
+        return url;
+      }
+    }
+    const base = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/api\/v1\/?$/, "").replace(/\/$/, "");
+    return `${base}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
+
   // --- Image Upload Handler for Settings ---
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -880,7 +895,7 @@ function DashboardContent() {
                       <div className="flex items-center gap-6">
                         {settingsForm.profile_image ? (
                           <img
-                            src={settingsForm.profile_image}
+                            src={getProfileImageUrl(settingsForm.profile_image)}
                             alt="Profile"
                             className="h-20 w-20 rounded-full object-cover border border-border"
                           />
