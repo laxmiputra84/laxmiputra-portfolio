@@ -1,11 +1,10 @@
 import api from "./api";
 
 export async function loginUser(username: string, password: string) {
-  const formData = new URLSearchParams();
-  formData.append("username", username);
-  formData.append("password", password);
+  // Use raw urlencoded string format to ensure cross-browser compatibility and exact form serialization
+  const payload = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
-  const response = await api.post("/auth/login", formData, {
+  const response = await api.post("/auth/login", payload, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
