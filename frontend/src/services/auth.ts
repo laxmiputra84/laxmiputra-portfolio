@@ -1,7 +1,11 @@
 import api from "./api";
 
-export async function loginUser(formdata: FormData) {
-  const response = await api.post("/auth/login", formdata, {
+export async function loginUser(username: string, password: string) {
+  const formData = new URLSearchParams();
+  formData.append("username", username);
+  formData.append("password", password);
+
+  const response = await api.post("/auth/login", formData, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },

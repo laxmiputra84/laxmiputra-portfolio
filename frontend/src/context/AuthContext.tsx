@@ -47,11 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const formdata = new FormData();
-      formdata.append("username", username);
-      formdata.append("password", password);
-      
-      const data = await loginUser(formdata);
+      const data = await loginUser(username, password);
       const accessToken = data.access_token;
       
       localStorage.setItem("token", accessToken);
